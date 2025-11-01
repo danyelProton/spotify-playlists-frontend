@@ -1,0 +1,17 @@
+{
+  "name": "spotify-playlists",
+  "version": "1.0.0",
+  "main": "model.js",
+  "scripts": {
+    "start": "http-server . --cors -P http://localhost:8080?"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "fuse.js": "^7.1.0"
+  }
+}

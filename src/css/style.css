@@ -1,0 +1,423 @@
+/* 
+--- 01 TYPOGRAPHY
+- Font sizes (px):
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Font weights:
+Default:
+Medium:
+Semi bold:
+Bold:
+
+- Line heights:
+Default:
+Small:
+Medium:
+Paragraph:
+Large:
+
+- Letter spacing:
+
+
+- Font color:
+Default:
+Darker:
+
+--- 02 COLORS
+- Primary:
+- Tints: 
+- Shades:
+- Accents:
+- Greys: 
+- Other:
+
+
+--- 05 SHADOWS
+
+--- 06 BORDER-RADIUS
+Default:
+Medium:
+Big:
+
+
+--- 07 WHITESPACE
+- Spacing system (px):
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+*/
+
+:root {
+  --white: #fff;
+  --black: #000;
+  --main: #27548A;
+  --grey: #333;
+  --main40t: #7d98b9;
+  --main50t: #93aac5;
+  --main70t: #beccdc;
+  --main90t: #e9eef3;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Bai Jamjuree', 'Varela', 'Solway' ,'Aldrich', sans-serif;
+  /* font-family: sans-serif; */
+  font-weight: 400;
+  line-height: 1;
+  color: var(--black);
+  background-color: var(--main90t);
+}
+
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--main);
+}
+
+::selection {
+  background: var(--main);
+  color: var(--white);
+}
+
+/* ************************************ */
+/* GENERAL */
+/* ************************************ */
+.container {
+  width: 85%;
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.header-box {
+  /* sticky settings */
+  /* position: sticky;
+  top:0;
+  z-index: 99;
+  overflow: hidden; */
+
+  background-color: var(--main70t);  
+  border-bottom: 2px solid #000;
+  margin-bottom: 4.8rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 3.2rem 0; */
+}
+
+.main-box {
+  display: flex;
+  gap: 4.8rem;
+}
+
+.logo__img {
+  width: 35%;
+}
+
+.main-nav__list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 1.6rem;
+  list-style: none;
+}
+
+.main-nav__link {
+  font-size: 1.8rem;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--grey);
+  text-transform: uppercase;
+  letter-spacing: .75px;
+
+}
+
+/* aside {
+  position: sticky;
+  top:0;
+  z-index: 99;
+  overflow: hidden;
+  background-color: var(--main70t);
+} */
+
+.sidebar-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  list-style: none;
+}
+
+.sidebar-nav__link {
+  font-size: 1.6rem;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--grey);
+  text-transform: lowercase;
+  letter-spacing: .25px;
+}
+
+.main-content {
+  width: 100%;
+}
+
+
+
+
+
+/* SEARCH BAR */
+.main-content__search {
+  padding: .8rem 1.6rem;
+  display: flex;
+  gap: 1.2rem;
+  border: 1.5px solid #000;
+  border-radius: 25px;
+  margin-bottom: 3rem;
+}
+
+.search__icon {
+  fill: var(--main);
+  height: 3rem;
+  width: 3rem;
+}
+
+.search__input {
+  flex-grow: 1;
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.search__input:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.main-content__search:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--main);
+}
+
+.search__input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+
+
+
+/* ERROR (NO ALBUMS FOUND) */
+.error__text {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+
+
+
+/* ALBUMS VIEW */
+.main-content__albums {
+  /* width: 100%; */
+  display: grid;
+  /* grid-template-columns: repeat(4, 1fr); */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.album {
+  position: relative;
+}
+
+.album__img {
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+  transition: all .3s;
+}
+
+
+.album__info {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(39, 84, 138, .85);
+  color: #f9f5ea;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .3s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* flex-grow: 1; */
+
+  padding: 1.8rem;
+  border-radius: 5px;
+}
+
+.album__name {
+  font-size: 3em;
+  margin-bottom: 1.8rem;
+  text-align: center;
+}
+
+.album__artist {
+  font-size: 2.4em;
+  text-align: center;
+}
+
+.album__year-genre {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  position: absolute;
+  bottom: 0;
+  padding: 2.4rem;
+}
+
+.album__year, .album__genre {
+  font-size: 1.4rem;
+}
+
+.album:hover .album__info {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* .album:hover .album__img {
+  filter: blur(2.5px);
+} */
+
+
+
+/* ALBUM CARD */
+.album-card-overview__img-box {
+  max-width: 40%;
+}
+
+.album-card-overview__img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.album-card-overview {
+  display: flex;
+  gap: 3.2rem;
+  margin-bottom: 4.8rem;
+}
+
+.album-card-overview__name {
+  font-size: 4.4rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.album-card-overview__artist {
+  font-size: 2.4rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+
+.album-card-overview__year {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.album-card-overview__genre-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-bottom: 2.4rem;
+}
+
+.album-card-overview__genre-item {
+  font-size: 1.4rem;
+  font-weight: 500;
+  border: 1.5px solid;
+  border-radius: 5px;
+  padding: .4rem .8rem
+}
+
+.album-card-overview__other-details {
+  font-size: 1.4rem;
+}
+
+.album-card-details {
+  display: flex;
+  gap: 3.2rem;
+  margin-bottom: 5.2rem;
+}
+
+/* .album-card-details__release-date, .album-card-details__songs-total, .album-card-details__record-label {
+  display: flex;
+  justify-content: space-between;
+} */
+
+/* .album-card-details__about-box {
+  width: 33%;
+  font-size: 1.6rem;
+} */
+
+.album-card-details__description-box {
+  width: 50%;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  /* text-align: justify; */
+}
+
+.album-card-details__link-box {
+  width: 50%;
+}
+
+.album-card-details__link-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  font-size: 1.6rem;
+}
+
+.album-card-details__release-date-content, .album-card-details__songs-total-content, .album-card-details__record-label-content {
+  text-align: right;
+}
+
+/* .album-card-details__link-item-icon {
+  width: 5.2rem;
+  height: 5.2rem;
+  border: 1.5px solid #000;
+  border-radius: 15px;
+  padding: .4rem;
+} */
+
+.album-card-details__link-item {
+  display: flex;
+    width: 4rem;
+  /* height: 4.4rem; */
+  justify-content: center;
+  align-items: center;
+  /* padding: .2rem; */
+  /* background-position: center center; */
+  
+}
+
+.album-card-details__link-item-img {
+    display: block;
+    width: 100%;
+}
