@@ -68,7 +68,7 @@ html {
 }
 
 body {
-  font-family: 'Bai Jamjuree', 'Varela', 'Solway' ,'Aldrich', sans-serif;
+  font-family: 'Bai Jamjuree', sans-serif;
   /* font-family: sans-serif; */
   font-weight: 400;
   line-height: 1;
@@ -180,7 +180,7 @@ body {
   display: flex;
   gap: 1.2rem;
   border: 1.5px solid #000;
-  border-radius: 25px;
+  border-radius: 15px;
   margin-bottom: 3rem;
 }
 
@@ -214,6 +214,60 @@ body {
   cursor: pointer;
 }
 
+
+
+/* FILTERS */
+.year__items, .genre-primary__items {
+  display: flex;
+  flex-direction: row;
+  gap: .8rem;
+  list-style: none;
+  margin-bottom: .8rem;
+}
+
+.year__item, .genre-primary__item, .genre-secondary__dropdown {
+  padding: .4rem .8rem;
+  border: 1.5px solid #000;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.filter__genre-secondary {
+  position: relative;
+}
+
+.genre-secondary__dropdown {
+  display: flex;
+  flex-direction: row;
+  width: 25%;
+  cursor: pointer;
+}
+
+.genre-secondary__options {
+  /* display: none; */
+  position: absolute;
+  top: calc(100% + 2.5px);
+  background-color: white;
+  width: 25%;
+  padding: .4rem .8rem;
+  max-height: 25rem;
+  overflow-y: auto;
+}
+
+.genre-secondary__search-input {
+  border: none;
+  background: inherit;
+  padding: .8rem 0;
+  border-bottom: 1px solid;
+  width: 100%;
+}
+
+.genre-secondary__option {
+  font-size: 1.2rem;
+  padding: .2rem 0;
+  margin-bottom: .4rem;
+}
 
 
 

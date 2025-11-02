@@ -99,7 +99,7 @@ export const controlAlbums = async params => {
   const albumsViewContent = AlbumsView.generateMarkup(albums);
   render(parentEl, AlbumsView.childEl, albumsViewContent);
 
-  console.log(model.state.playlistCurrentView);
+  // console.log(model.state.playlistCurrentView);
 };
 
 
@@ -108,7 +108,7 @@ export const controlAlbums = async params => {
 export const controlAlbum = async params => {
   // console.log(model.state);
 
-  if (!model.state.albums) { 
+  if (!model.state.albums) {
     await model.getAlbumsFromDb();
   }
 
@@ -126,7 +126,7 @@ export const controlAlbum = async params => {
 
 
 export const renderBs = () => {
-  console.log(model.state);
+  // console.log(model.state);
   const parentEl = document.querySelector('.main-content');
   parentEl.innerHTML = '';
   parentEl.insertAdjacentHTML('beforeend', '<h1>SONGS</h1>');
