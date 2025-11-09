@@ -3,7 +3,7 @@ export const childEl = document.createElement('aside');
 // console.log(el);
 
 
-export const generateMarkup = (playlists) => {
+export const generateMarkup = playlists => {
   const playlistsMarkup = playlists.map(playlist => {
     return `
       <li>

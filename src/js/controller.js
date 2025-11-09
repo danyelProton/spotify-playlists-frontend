@@ -5,13 +5,17 @@ import * as AlbumsView from './views/albumsView.js';
 import * as AlbumView from './views/components/album.js';
 import * as SearchView from './views/components/search.js';
 import * as ErrorView from './views/components/error.js';
+import * as FiltersView from './views/components/filters.js';
+import * as FilterYearView from './views/components/filterYear.js';
+import * as FilterPrimaryGenreView from './views/components/filterPrimaryGenre.js';
+import * as FilterSecondaryGenreView from './views/components/filterSecondaryGenre.js';
 import { render, clear, removeEl } from './views/view.js';
 
 
 const init = async () => {
   model.state.playlists = await model.getPlaylistsFromDb();
   model.state.albums = await model.getAlbumsFromDb();
-  model.state.genres = model.getUniqueGenres();
+  // model.state.genres = model.getUniqueGenres();
   model.state.lastUpdate = await model.getUpdatesFromDb();
 };
 
@@ -81,6 +85,25 @@ const controlSearch = parentEl => {
 
 
 
+const controlFilters = parentEl => {
+  render(parentEl, FiltersView.childEl);
+
+  const years = model.getUniqueYears();
+  const primaryGenres = model.getUniquePrimaryGenres();
+  const secondaryGenres = model.getUniqueSecondaryGenres();
+
+  const filterYearContent = FilterYearView.generateMarkup(years);
+  const filterPrimaryGenreContent = FilterPrimaryGenreView.generateMarkup(primaryGenres);
+  const filterSecondaryGenreContent = FilterSecondaryGenreView.generateMarkup(secondaryGenres);
+
+  render(FiltersView.childEl, FilterYearView.childEl, filterYearContent);
+  render(FiltersView.childEl, FilterPrimaryGenreView.childEl, filterPrimaryGenreContent);
+  render(FiltersView.childEl, FilterSecondaryGenreView.childEl, filterSecondaryGenreContent);
+};
+
+
+
+
 export const controlAlbums = async params => {
   // console.log(params);
 
@@ -95,6 +118,7 @@ export const controlAlbums = async params => {
   controlSidebarNav();
   const parentEl = controlMainContent();
   controlSearch(parentEl);
+  controlFilters(parentEl);
 
   const albumsViewContent = AlbumsView.generateMarkup(albums);
   render(parentEl, AlbumsView.childEl, albumsViewContent);

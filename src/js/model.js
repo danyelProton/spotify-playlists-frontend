@@ -47,7 +47,31 @@ export const getUpdatesFromDb = async () => {
 
 
 
-export const getUniqueGenres = () => {
+export const getUniqueYears = () => {
+  const years = state.albums.map(album => album.releaseDateString.slice(0, 4));
+
+  const yearsUnique = [...new Set(years)].sort();
+
+  console.log(yearsUnique);
+
+  return yearsUnique;
+};
+
+
+
+export const getUniquePrimaryGenres = () => {
+  const genres = state.albums.map(album => album.mainGenre);
+
+  const genresUnique = [...new Set(genres)].sort();
+
+  // console.log(genresUnique);
+
+  return genresUnique;
+};
+
+
+
+export const getUniqueSecondaryGenres = () => {
   const genres = state.albums.flatMap(album => {
     return album.genresMerged;
   });

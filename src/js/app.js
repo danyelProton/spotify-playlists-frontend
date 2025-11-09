@@ -12,4 +12,4 @@ Router.registerRoute('/about', Controller.renderBs);
 // Router.resolve('/albums/5XbVk30ifqaiI6EiVVjA1p');
 
 
-// await Router.start();
+await Router.start();
