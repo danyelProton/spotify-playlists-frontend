@@ -13,10 +13,12 @@ import { render, clear, removeEl } from './views/view.js';
 
 
 const init = async () => {
-  model.state.playlists = await model.getPlaylistsFromDb();
-  model.state.albums = await model.getAlbumsFromDb();
-  // model.state.genres = model.getUniqueGenres();
-  model.state.lastUpdate = await model.getUpdatesFromDb();
+  await model.getPlaylistsFromDb();
+  await model.getAlbumsFromDb();
+  await model.getUpdatesFromDb();
+  model.getUniqueYears();
+  model.getUniquePrimaryGenres();
+  model.getUniqueSecondaryGenres();
 };
 
 
@@ -33,7 +35,7 @@ const handleSearchInput = input => {
     const albumsViewContent = AlbumsView.generateMarkup(foundAlbums);
     render(document.querySelector('.main-content'), AlbumsView.childEl, albumsViewContent);
   } else {
-    console.log('no albums');
+    // console.log('no albums');
     removeEl(AlbumsView.childEl);
     controlError('No albums found');
   }
@@ -41,6 +43,26 @@ const handleSearchInput = input => {
 };
 
 SearchView.listenSearchInput(handleSearchInput);
+
+
+
+const handleSearchGenresInput = input => {
+  const foundGenres = model.searchGenres(input);
+  // console.log(foundGenres);
+
+  if (foundGenres.length) {
+    if (ErrorView.childEl) removeEl(ErrorView.childEl);
+    const secondaryGenreOptionsContent = FilterSecondaryGenreView.generateMarkupOptions(foundGenres);
+    render(document.querySelector('.genre-secondary__options'), FilterSecondaryGenreView.childElOptions, secondaryGenreOptionsContent);
+  } else {
+    // console.log('no albums');
+    removeEl(FilterSecondaryGenreView.childElOptions);
+    controlError('No genres found');
+  }
+
+};
+
+FilterSecondaryGenreView.listenSearchInput(handleSearchGenresInput);
 
 
 
@@ -88,17 +110,15 @@ const controlSearch = parentEl => {
 const controlFilters = parentEl => {
   render(parentEl, FiltersView.childEl);
 
-  const years = model.getUniqueYears();
-  const primaryGenres = model.getUniquePrimaryGenres();
-  const secondaryGenres = model.getUniqueSecondaryGenres();
+  const yearContent = FilterYearView.generateMarkup(model.state.uniqueYears);
+  const primaryGenreContent = FilterPrimaryGenreView.generateMarkup(model.state.uniquePrimaryGenres);
+  const secondaryGenreOptionsContent = FilterSecondaryGenreView.generateMarkupOptions(model.state.uniqueSecondaryGenres);
+  const secondaryGenreContent = FilterSecondaryGenreView.generateMarkup();
 
-  const filterYearContent = FilterYearView.generateMarkup(years);
-  const filterPrimaryGenreContent = FilterPrimaryGenreView.generateMarkup(primaryGenres);
-  const filterSecondaryGenreContent = FilterSecondaryGenreView.generateMarkup(secondaryGenres);
-
-  render(FiltersView.childEl, FilterYearView.childEl, filterYearContent);
-  render(FiltersView.childEl, FilterPrimaryGenreView.childEl, filterPrimaryGenreContent);
-  render(FiltersView.childEl, FilterSecondaryGenreView.childEl, filterSecondaryGenreContent);
+  render(FiltersView.childEl, FilterYearView.childEl, yearContent);
+  render(FiltersView.childEl, FilterPrimaryGenreView.childEl, primaryGenreContent);
+  render(FiltersView.childEl, FilterSecondaryGenreView.childEl, secondaryGenreContent);
+  render(document.querySelector('.genre-secondary__options'), FilterSecondaryGenreView.childElOptions, secondaryGenreOptionsContent);
 };
 
 

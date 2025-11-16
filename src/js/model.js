@@ -8,7 +8,9 @@ export const state = {
   playlists: '',
   playlistCurrentView: '',
   lastUpdate: '',
-  genres: ''
+  uniqueYears: '',
+  uniquePrimaryGenres: '',
+  uniqueSecondaryGenres: ''
 };
 
 
@@ -49,11 +51,9 @@ export const getUpdatesFromDb = async () => {
 
 export const getUniqueYears = () => {
   const years = state.albums.map(album => album.releaseDateString.slice(0, 4));
-
   const yearsUnique = [...new Set(years)].sort();
-
-  console.log(yearsUnique);
-
+  // console.log(yearsUnique);
+  state.uniqueYears = yearsUnique;
   return yearsUnique;
 };
 
@@ -61,25 +61,19 @@ export const getUniqueYears = () => {
 
 export const getUniquePrimaryGenres = () => {
   const genres = state.albums.map(album => album.mainGenre);
-
   const genresUnique = [...new Set(genres)].sort();
-
   // console.log(genresUnique);
-
+  state.uniquePrimaryGenres = genresUnique;
   return genresUnique;
 };
 
 
 
 export const getUniqueSecondaryGenres = () => {
-  const genres = state.albums.flatMap(album => {
-    return album.genresMerged;
-  });
-
+  const genres = state.albums.flatMap(album => album.genresMerged);
   const genresUnique = [...new Set(genres)].sort();
-
   // console.log(genresUnique);
-
+  state.uniqueSecondaryGenres = genresUnique;
   return genresUnique;
 };
 
@@ -92,9 +86,8 @@ export const searchAlbums = input => {
     ignoreDiacritics: false,
     shouldSort: true,
     minMatchCharLength: 1,
-    location: 0,
-    threshold: 0.15,
-    distance: 5,
+    threshold: 0.3,
+    distance: 100,
     fieldNormWeight: 1,
     keys: [
       "name",
@@ -113,6 +106,33 @@ export const searchAlbums = input => {
   }
   // const albumsToReturn = (albums.length) ? albums.map(el => el.item) : state.albumsCurrentView;
   // return albumsToReturn;
+};
+
+
+
+export const searchGenres = input => {
+  const list = state.uniqueSecondaryGenres;
+  const fuseOptions = {
+    includeScore: true,
+    ignoreDiacritics: false,
+    shouldSort: true,
+    minMatchCharLength: 1,
+    threshold: 0.3,
+    distance: 100,
+    fieldNormWeight: 1,
+    keys: []
+  };
+  const fuse = new Fuse(list, fuseOptions);
+  const searchPattern = input;
+  const genres = fuse.search(searchPattern);
+  // console.log(genres);
+
+  if (input) {
+    return genres.length ? genres.map(el => el.item) : [];
+  } else {
+    return state.uniqueSecondaryGenres;
+  }
+
 };
 
 
